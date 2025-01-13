@@ -1,0 +1,195 @@
+/* Texto tomado del sitio https://es.wikibooks.org/wiki/Programaci%C3%B3n_en_C/Primer_programa_en_C  */
+/Primer programa en C
+< Programación en C
+Fundamentos de programación
+
+
+En el libro "El Lenguaje de Programación C", Kernighan y Ritchie introdujeron al lenguaje C utilizando un sencillo programa que mostraba un saludo por la pantalla. Desde entonces se hizo tradición empezar con cualquier lenguaje de programación con el ejemplo del Hola mundo.
+
+En particular en C se involucran muchas partes y sintaxis del lenguaje, por lo cual es especialmente útil verlo como el primer ejemplo de programación en C.
+
+Ejemplo: Hola mundo
+
+/* Inclusión de archivos */
+#include <stdio.h>
+
+/* Función principal */
+int main (int argc,char **argv)
+{
+   /* Impresión por pantalla y salida del programa*/
+   printf("Hola mundo\n");
+   return 0;
+}
+Para poder editar y ejecutar este programa será necesario utilizar algún editor y luego un compilador, como se explicó en la sección Herramientas necesarias.
+
+Si se tiene el compilador gcc en un entorno UNIX o GNU/Linux, la forma sencilla de compilar y ejecutar será:
+
+$ gcc holamundo.c
+$ ./a.out
+Hola Mundo
+$
+Es decir que el compilador genera un archivo, en este caso llamado a.out, y la salida generada por ese archivo es "Hola mundo". A continuación una explicación detallada sobre el proceso de compilación del programa, y luego un análisis línea por línea del contenido de este ejemplo.
+
+
+
+Sumario  [ocultar] 
+1	Pre-requisitos para la compilación de programas
+2	Compilación de programas según la plataforma
+2.1	Windows
+2.1.1	Compilación del código fuente
+2.1.2	Salida por pantalla
+2.2	GNU
+3	Diseccionando el "Hola Mundo"
+4	Comentarios
+Pre-requisitos para la compilación de programas[editar]
+Como ya se mencionó, será necesario tener instalado el compilador y un editor o entorno de desarrollo que permitan escribir el código a compilar. Para más información ver la sección Herramientas necesarias.
+
+El código a compilar debe guardarse con un nombre que represente al programa en cuestión y la extensión .c. En el caso del ejemplo del Hola mundo, el archivo puede llamarse hola.c.
+
+En las explicaciones a continuación, se asume que se cuenta con un compilador instalado y se ha editado un archivo hola.c que se quiere compilar. Si tu sistema operativo no aparece en esta lista busca en internet, ya que seguro que existe algún compilador para ese sistema.
+
+Compilación de programas según la plataforma[editar]
+Windows[editar]
+Para compilar un programa C en entornos Windows, debemos seguir una serie de pasos que varían según el compilador de C que queramos utilizar. Antes que nada, sería bueno que se revises la documentación del compilador elegido para conocer los comandos exactos.
+
+Compilación del código fuente[editar]
+Si se utiliza un entorno de desarrollo, será posible compilar directamente desde el entorno, mediante un botón o una combinación de teclas.
+
+Si se ejecuta el compilador desde la línea de comandos, la línea será distinta según el compilador utilizado. A continuación algunos ejemplos de ciertos comandos según el compilador:
+
+En Turbo C de Borland es: tcc hola.c
+En C++ de Borland: bcc hola.c
+En Visual C de Microsoft: cl hola.c
+En GNU gcc: gcc hola.c o cc hola.c
+El C de Zortech: ztc hola.c
+Una vez compilado el código fuente se genera un archivo llamado archivo objeto o programa objeto que es luego enlazado mediante el enlazador, para generar el archivo ejecutable.
+
+Los compiladores actuales suelen hacer dos funciones de una vez, compilando y enlazando todo en una sola función, aunque es posible pedirles que no lo hagan mediante parámetros adicionales.
+
+Según el compilador y la configuración utilizada, se obtendrán dos o tres archivos:
+
+El archivo fuente
+
+  hola.c
+El archivo objeto
+
+  hola.obj
+El archivo ejecutable
+
+  hola.exe
+Este último es el que nos interesa, puesto a que es el código ejecutable, el programa en sí. Al ejecutarlo se producirá la salida deseada en una ventana de consola.
+
+Salida por pantalla[editar]
+Si ejecutamos en entorno Windows el programa directamente desde el navegador de archivos, o también desde algunos entornos de desarrollo, lo que sucederá será que apenas abierta la ventana de la consola, se mostrará la cadena esperada y luego de terminada la función, la consola se cerrará sin tener el tiempo suficiente de ver nuestro mensaje en pantalla.
+
+Para poder ver la salida por pantalla será necesario ejecutar el programa desde la línea de comandos, o modificar la configuración del entorno de desarrollo para que muestre la salida por pantalla al ejecutar el programa.
+
+Una posible solución es agregar una función adicional a nuestro "hola.c":
+
+/* Inclusión de archivos */
+#include <stdio.h>
+#include <stdlib.h>
+
+/* Función principal */
+int main (int argc,char **argv)
+{
+   /* Impresión por pantalla y salida del programa*/
+   printf("Hola mundo\n");
+   system ("pause");
+   return 0;
+}
+Las dos líneas agregadas permiten que utilicemos la biblioteca stdlib, que incluye la función system y que mediante esta función se ejecute el comando pause del sistema, que evita que el programa siga hasta que se presione una tecla.
+
+Así es posible visualizar que la salida de hola.c se completó perfectamente.
+
+
+
+GNU[editar]
+Si bien existen otros compiladores, lo más usual y más sencillo para compilar un programa en GNU/Linux es el compilador gcc, ya que es el que se incluye en todas las distribuciones.
+
+De cualquier forma, es posible realizar la compilación desde línea de comandos o desde el entorno gráfico.
+
+Para realizarla desde línea de comandos, será necesario contar con una terminal (xterm, konsole, gnome-terminal, etc). No es necesario contar con permisos de root para crear o compilar programas. En esa terminal será necesario escribir
+
+gcc hola.c
+Si no existen errores en el código, este comando nos creará un archivo ejecutable, que por omisión se llama "a.out", y que podemos ejecutar desde la línea de comandos de la siguiente forma:
+
+./a.out
+Hola mundo 
+Es una buena idea especificar el nombre que el archivo ejecutable tendrá, pasando como parámetro al compilador la opción -o, de la siguiente forma:
+
+gcc hola.c -o hola
+Con lo cual, el nombre del archivo creado será hola. Este archivo no tiene extensión ya que es la forma usual de llamar a los archivos ejecutables en los entornos UNIX y GNU/Linux, sin embargo funcionaría de la misma forma si se llamara hola.exe.
+
+Para ejecutarlo, haremos los mismo que en el caso anterior:
+
+./hola
+Hola mundo 
+Existen otros parámetros que podemos especificar al compilador en la línea de comandos, dependiendo del tipo de programa, y en función de la complejidad del mismo. Por ejemplo, podemos agregar las siguientes opciones:
+
+gcc hola.c -o hola -Wall -pedantic
+La opción -Wall nos mostrará todos los avisos que produzca el compilador, no solamente los errores. Los avisos nos indican dónde y/o porqué podría surgir algún error en nuestro programa.
+
+La opción -pedantic nos aporta más información sobre los errores y los avisos mostrados por GCC.
+
+Diseccionando el "Hola Mundo"[editar]
+A continuación veremos cuál es la estructura básica de un programa en C, para poder entender qué hace cada una de las líneas de nuestro sencillo programa.
+
+Es probable que lo primero que salte a la vista sea la línea:
+
+   printf("Hola mundo\n");
+Esta es la línea que hace aparecer la cadena Hola Mundo en nuestra pantalla. Notamos que en C la sentencia para imprimir algo por pantalla es printf() y, además, hay que colocar paréntesis alrededor de lo que queremos imprimir para utilizarla.
+
+Esto se debe a que en C, printf es una función, que imprime su argumento (la cadena Hola Mundo\n) en la pantalla. Se denomina invocar una función a la acción de utilizarla para que realice una acción.
+
+Podemos observar también que la cadena a imprimir termina con una extraña combinación: \n. La combinación \n no representa a dos caracteres independientes, sino que representa un único carácter no imprimible: el salto de línea. Sin el salto de línea, el resultado al ejecutar el programa sería:
+
+$ ./a.out
+Hola Mundo$
+Es decir que no hay salto de línea entre la cadena impresa, y la siguiente entrada de la línea de órdenes, que no es lo que esperábamos.
+
+Lo último a notar en la línea es que termina con un punto y coma. En C, todas las sentencias terminan con un punto y coma. Al principio puede parecer obvio dónde termina una sentencia, pero ya veremos más adelante que no lo es tanto.
+
+Observemos ahora la siguiente sentencia del programa:
+
+   return 0;
+Luego de esta sentencia, termina el programa. En el caso de la instrucción return dentro de la función main, el resultado es que se finaliza el programa, comunicándole al sistema operativo que el valor de retorno (un código numérico que el sistema utiliza para saber si el programa ha funcionado bien o ha dado fallos) es 0, es decir, correcto.
+
+Las dos últimas sentencias se encuentran encerradas entre llaves. De esta manera, forman un bloque, es decir, un grupo de sentencias que se ejecutarán siempre de forma correlativa.
+
+¿Y qué es esa línea que precede (en realidad, que da nombre) al bloque?
+
+int main (int argc, char **argv)
+Pues es la definición de una función, en este caso llamada main. En C (y en general en todos los lenguajes de programación estructurada) todo se hace a base de funciones, como main y printf.
+
+La función main es especial, porque es el la que se invoca cuando se ejecuta el programa. Todos los programas en C comienzan su ejecución al principio de la función main, y cuando ésta acaba, el programa también.
+
+Veamos con más detalle la definición de la función:
+
+int main (int argc, char **argv)
+{
+   ...
+}
+El nombre de la función que viene a continuación, entre llaves, es main.
+Recibe dos argumentos: int argc y char **argv (que representan a la cantidad de argumentos ingresados al ejecutar el programa y a los valores de estos argumentos respectivamente).[1]
+La función devuelve como resultado un número entero, int (que es el 0 de la instrucción return).[2]
+Finalmente, y un tanto aparte (está separada del resto por una línea en blanco), tenemos la línea:
+
+#include <stdio.h>
+Que parece bastante distinta al resto del programa, y que, además, parece no tener sentido, puesto que ya hemos definido la función main que hace todo el trabajo.
+
+Efectivamente, esa línea no es parte del programa, aunque sea imprescindible. La línea es una instrucción del preprocesador de C, como nos lo indica el símbolo #, y lo que hace es incluir en ese punto el contenido de otro fichero, antes (de ahí el nombre de preprocesador) de que comience la compilación. El fichero stdio.h es el que contiene la definición de la función printf(), que antes utilizamos pero que no escribimos, ya que forma parte de la biblioteca estándar de C.
+
+Comentarios[editar]
+Una vez escrito un código, tratar de entenderlo un año más tarde solo con leerlo puede ser frustrante: no hay manera de saber (si el programa es medianamente complicado) qué es cada variable, o qué hace cada bloque de código. Por esto, en cualquier lenguaje de programación son importantes los comentarios.
+
+Un comentario en C es todo lo que se encuentre entre los símbolos /* y */. Hay que tener en cuenta que los comentarios no se pueden anidar: si dentro de un comentario hay un /*, seguirá siendo el primer */ el que finalice el comentario, no se esperará al segundo.
+
+Hay otro tipo de comentarios en C, procedentes del lenguaje C++, e incorporadas al estándar de C a partir de C99: //. Todo lo que esté después de estos signos, hasta el final de la línea, se considerará un comentario y el compilador no lo tomará en cuenta.
+
+En el ejemplo presentado pueden verse tres líneas con comentarios, que documentan someramente las distintas funcionalidades del código. En los próximos capítulos podrán verse mejores usos de los comentarios dentro del código.
+
+También podría decirse que es una herramienta básica basada en compilador
+
+En un capítulo posterior podrá ver un ejemplo del uso de los parámetros que recibe main.
+Volver arriba ↑ Es importante señalar que el estándar dice que main deberá definirse como función que retorna un entero, o de lo contrario el resultado queda indefinido.

@@ -1,0 +1,3 @@
+Escribir cadena en archivo mediante fputs.
+	Facultad de Ingenieria.
+ 
